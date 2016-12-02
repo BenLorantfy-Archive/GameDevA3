@@ -4,8 +4,22 @@
     </head>
     <body>
         <script id="groundTemplate" type="text/template">
-            <div class="ground block"></div>
+            <div class="ground block">
+                <div class="grass"></div>
+            </div>
         </script>   
+        <script id="blankTemplate" type="text/template">
+            <div class="blank block"></div>
+        </script>   
+        
+        <div id="abilities">
+            <input class="ability" type="button" value="Increase Speed" />
+            <input class="ability" type="button" value="Decrease Speed" />
+            <input class="ability" type="button" value="Increase Jump Height" />
+            <input class="ability" type="button" value="Decrease Jump Height" />
+            <input class="ability" type="button" value="Allow Tripple Jump" />
+            <input class="ability" type="button" value="Allow Single Jump" />
+        </div>
         
         <div id="player"></div>
         <div id="mapHolder">

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 public class MultiplayerEngine : MonoBehaviour {
 	public Server server = null;
 	public GameObject player = null;
+	public GameObject[] platforms = null;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,11 @@ public class MultiplayerEngine : MonoBehaviour {
 				if(data["event"].ToString() == "chat"){
 					Broadcast(message);
 					//Debug.Log("Got chat message: " + data["message"]);
+				}
+
+				if(data["event"].ToString() == "vote"){
+					// Handle vote here with data["kind"]
+					Debug.Log("A client voted for: " + data["kind"]);
 				}
 
 				//client.Send("Got your message:" + message);
@@ -47,5 +53,14 @@ public class MultiplayerEngine : MonoBehaviour {
 
 		// Send player movements
 		Broadcast("{ \"event\":\"movement\", \"x\":" + x + ", \"y\":" + y + "}");
+
+		// Send platform movements
+		int i = 0;
+		foreach (GameObject platform in platforms) {
+			float platX = platform.transform.position.z;
+			float platY = platform.transform.position.y;
+			Broadcast("{ \"event\":\"platform\", \"x\":" + platX + ", \"y\":" + platY + ", \"i\":" + i + "}");
+			i++;
+		}
 	}
 }

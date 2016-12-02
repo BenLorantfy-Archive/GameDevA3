@@ -21,8 +21,21 @@ html,body{
     height: 100px;
 }
 
+.blank{
+    background-color: transparent;
+}
+
 .ground{
     background-color:brown;
+}
+
+.ground .grass{
+    background-color:green;
+    position: absolute;
+    top:0;
+    left:0;
+    height: 10%;
+    width:100%;
 }
 
 #player{
@@ -91,4 +104,20 @@ html,body{
     border:1px solid grey;
     border-radius: 5px;
     background-color:white;
+}
+
+.platform{
+    position: absolute;
+    height: 10px;
+    width:50px;
+    border-radius: 10px;
+    background-color:grey;
+}
+
+#abilities{
+    width: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    text-align: center;
 }

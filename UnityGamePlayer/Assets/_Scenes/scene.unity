@@ -1403,6 +1403,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1328484658}
+  platforms:
+  - {fileID: 255754416}
 --- !u!4 &1968992478
 Transform:
   m_ObjectHideFlags: 0
