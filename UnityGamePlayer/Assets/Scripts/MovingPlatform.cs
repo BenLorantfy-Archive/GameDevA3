@@ -23,7 +23,5 @@ public class MovingPlatform : MonoBehaviour {
 			}	
 		}
 
-		Debug.Log (this.transform.position.z);
-
 	}
 }

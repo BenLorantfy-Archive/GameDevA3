@@ -247,7 +247,7 @@ namespace WebSockets{
 
 	public class Server {
 		private TcpListener server;
-		private List<Client> clients = new List<Client>();
+		public List<Client> clients = new List<Client>();
 
 		private Thread 		acceptThread = null;
 		private bool 		debug = true;
@@ -258,7 +258,6 @@ namespace WebSockets{
 
 		public Server(int port=80){
 			this.ip = GetLocalIPAddress();
-			UnityEngine.Debug.Log (this.ip);
 			this.port = port;
 
 			// [ Accepts in another thread so main thread isn't blocked ]

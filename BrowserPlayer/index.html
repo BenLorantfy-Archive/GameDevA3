@@ -1,46 +1,21 @@
+<html>
+    <head>
+        <link href="css/styles.css" rel="stylesheet" type="text/css" /> 
+    </head>
+    <body>
+        <script id="groundTemplate" type="text/template">
+            <div class="ground block"></div>
+        </script>   
+        
+        <div id="player"></div>
+        <div id="mapHolder">
+            <div id="map"></div>
+        </div>
+        
 
-<input id="textbox" placeholder="Enter message to game here" /><input id="send" type="button" value="Send" />
-<div id="log">
-    
-</div>
-
-<script>
-    $ = function(selector){
-        return document.querySelector(selector);
-    };
-    
-    var ip = prompt("Please enter IP of computer running the Unity Game");
-    var port = prompt("Please enter port server is running on");
-    
-    var log = $("#log");
-    var send = $("#send");
-    var textbox = $("#textbox");
-    
+        <script src="js/lib/jquery.js"></script>
+        <script src="js/main.js"></script>        
+    </body>
+</html>
 
 
-    function escapeHtml(string) {
-        var entityMap = {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': '&quot;',
-          "'": '&#39;',
-          "/": '&#x2F;'
-        };
-
-        return String(string).replace(/[&<>"'\/]/g, function (s) {
-            return entityMap[s];
-        });
-    }
-    
-    var socket = new WebSocket("ws://" + ip + ":" + port);
-    socket.onmessage = function(event){
-        log.innerHTML = log.innerHTML + "<div class='message'>" + escapeHtml(event.data) + "</div>";
-    }
-    
-    send.onclick = function(){
-        var msg = textbox.value;
-        socket.send(msg);
-    }
-    
-</script>
