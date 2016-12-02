@@ -26,13 +26,29 @@ socket.onmessage = function(event){
     var json = event.data;
     var data = JSON.parse(json);
     
-    $("#map").css({
-         "left":data.x * 50 + 10
-        ,"top":data.y * 100 - 80
-    })
-    
-//    log.innerHTML = log.innerHTML + "<div class='message'>" + escapeHtml(event.data) + "</div>";
+    if(data.event == "movement"){
+        $("#map").css({
+             "left":data.x * 50 + 10
+            ,"top":data.y * 100 - 80
+        });     
+    }else if(data.event == "chat"){
+        $("#chatLog").append("<div class='comment'>" + data.message + "</div>")
+    }
 }
+
+$("#chatTextBox").keydown(function(e){
+
+    if(e.keyCode == 13){
+        var text = $(this).val();
+        var data = {
+             "event":"chat"  
+            ,"message":text
+        };
+        socket.send(JSON.stringify(data));
+        
+        $(this).val("");
+    } 
+});
 
 //send.onclick = function(){
 //    var msg = textbox.value;

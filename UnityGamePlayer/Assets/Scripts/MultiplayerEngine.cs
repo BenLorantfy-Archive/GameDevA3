@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using WebSockets;
+using Newtonsoft.Json;
 
 public class MultiplayerEngine : MonoBehaviour {
 	public Server server = null;
@@ -13,10 +16,29 @@ public class MultiplayerEngine : MonoBehaviour {
 		server.OnConnect (delegate(Client client) {
 
 			client.OnMessage(delegate(string message) {
-				client.Send("Got your message:" + message);
+				Dictionary<string,object> data = null;
+				try{
+					data = JsonConvert.DeserializeObject<Dictionary<string,object>>(message);
+				}catch(Exception e){
+					Debug.Log("Failed to deserilize JSON:" + message);
+				}
+
+				if(data["event"].ToString() == "chat"){
+					Broadcast(message);
+					//Debug.Log("Got chat message: " + data["message"]);
+				}
+
+				//client.Send("Got your message:" + message);
 			});
 		});	
 	}
+
+	void Broadcast(string message){
+		foreach (Client client in server.clients) {
+			client.Send (message);
+		}
+	}
+		
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,8 +46,6 @@ public class MultiplayerEngine : MonoBehaviour {
 		float y = player.transform.position.y;
 
 		// Send player movements
-		foreach (Client client in server.clients) {
-			client.Send ("{ \"event\":\"movement\", \"x\":" + x + ", \"y\":" + y + "}");
-		}
+		Broadcast("{ \"event\":\"movement\", \"x\":" + x + ", \"y\":" + y + "}");
 	}
 }
