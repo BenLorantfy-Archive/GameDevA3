@@ -120,4 +120,17 @@ html,body{
     top:0;
     left:0;
     text-align: center;
+    margin-top:20px;
+}
+
+.ability{
+    background-color:transparent;
+    background-size: contain;
+    display: inline-block;
+    width:70px;
+    height: 90px;
+    border:none;
+    color:transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
