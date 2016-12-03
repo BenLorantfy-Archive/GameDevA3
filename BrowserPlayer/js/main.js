@@ -1,4 +1,4 @@
-var blocks = ["ground","ground","blank","ground","bridge"];
+var blocks = ["ground","ground","blank","ground","bridge","ground","bridge","blank","bridge","ground","blank","bridge","ground"];
 
 
 function renderBlocks(){
@@ -16,7 +16,7 @@ renderBlocks();
 
 
 var nickname = "Anom";
-var ip = "192.168.238.1";
+var ip = "192.168.0.25";
 var port = "8989";
 
 $("#join").click(function(){
@@ -32,6 +32,12 @@ $("#join").click(function(){
     })
     
 });
+
+$("#nickname").keydown(function(e){
+    if(e.keyCode == 13){
+        $("#join").click();
+    }
+})
 
 
 // [ Create socket ]
