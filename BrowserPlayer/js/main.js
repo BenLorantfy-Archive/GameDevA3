@@ -50,7 +50,7 @@ function setup(){
                 ,"top":data.y * 50 - 30
             });     
         }else if(data.event == "chat"){
-            $("#chatLog").append("<div class='comment'>" + data.message + "</div>")
+            $("#chatLog").append("<div class='comment'><b>" + data.nickname + "</b>: " + data.message + "</div>")
         }else if(data.event == "platform"){
             var platform = $(".platform").eq(data.i);
             if(platform.length == 0){
@@ -73,6 +73,7 @@ $("#chatTextBox").keydown(function(e){
         var data = {
              "event":"chat"  
             ,"message":text
+            ,"nickname":nickname
         };
         socket.send(JSON.stringify(data));
         
