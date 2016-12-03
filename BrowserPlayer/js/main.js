@@ -13,37 +13,56 @@ function renderBlocks(){
 
 renderBlocks();
 
-//    var ip = prompt("Please enter IP of computer running the Unity Game");
-//    var port = prompt("Please enter port server is running on");
-//    
+
+
+var nickname = "Anom";
 var ip = "192.168.0.25";
 var port = "8989";
 
+$("#join").click(function(){
+
+    $("#joinScreen").fadeToggle("fast",function(){
+        ip = $("#ip").val();
+        nickname = $("#nickname").val();
+        
+        // Create the web socket
+        setup();
+        
+        $("#game").fadeToggle("fast");
+    })
+    
+});
+
 
 // [ Create socket ]
-var socket = new WebSocket("ws://" + ip + ":" + port);
-socket.onmessage = function(event){
-    var json = event.data;
-    var data = JSON.parse(json);
-    
-    if(data.event == "movement"){
-        $("#map").css({
-             "left":data.x * 50 + 10
-            ,"top":data.y * 50 - 30
-        });     
-    }else if(data.event == "chat"){
-        $("#chatLog").append("<div class='comment'>" + data.message + "</div>")
-    }else if(data.event == "platform"){
-        var platform = $(".platform").eq(data.i);
-        if(platform.length == 0){
-            platform = $("<div class='platform'></div>");
-            $("#map").append(platform);
+var socket = null;
+
+function setup(){
+    socket = new WebSocket("ws://" + ip + ":" + port);
+   
+    socket.onmessage = function(event){
+        var json = event.data;
+        var data = JSON.parse(json);
+
+        if(data.event == "movement"){
+            $("#map").css({
+                 "left":data.x * 50 + 10
+                ,"top":data.y * 50 - 30
+            });     
+        }else if(data.event == "chat"){
+            $("#chatLog").append("<div class='comment'>" + data.message + "</div>")
+        }else if(data.event == "platform"){
+            var platform = $(".platform").eq(data.i);
+            if(platform.length == 0){
+                platform = $("<div class='platform'></div>");
+                $("#map").append(platform);
+            }
+
+            platform.css({
+                 "left":data.x * -50 - 20
+                ,"top":data.y * -50 + 50
+            })
         }
-        
-        platform.css({
-             "left":data.x * -50 - 20
-            ,"top":data.y * -50 + 50
-        })
     }
 }
 
