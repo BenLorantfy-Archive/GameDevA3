@@ -40,8 +40,11 @@ public class MultiplayerEngine : MonoBehaviour {
 	}
 
 	void Broadcast(string message){
-		foreach (Client client in server.clients) {
-			client.Send (message);
+		for (int i = server.clients.Count - 1; i >= 0; i--) {
+			Client client = server.clients [i];
+			if (!client.Send (message)) {
+				server.clients.RemoveAt (i);
+			}
 		}
 	}
 		

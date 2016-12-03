@@ -33,8 +33,14 @@ namespace WebSockets{
 			onMessageCallbacks.Add (callback);
 		}
 
-		public void Send(string message){
-			EncodeAndSendMessage (message);
+		public bool Send(string message){
+			try{
+				EncodeAndSendMessage (message);
+			}catch(Exception e){
+				return false;
+			}
+
+			return true;
 		}
 
 		private void Log(string message){
