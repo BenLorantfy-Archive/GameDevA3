@@ -1,4 +1,4 @@
-var blocks = ["ground","ground","blank","ground"];
+var blocks = ["ground","ground","blank","ground","bridge"];
 
 
 function renderBlocks(){
