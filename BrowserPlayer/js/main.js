@@ -16,7 +16,7 @@ renderBlocks();
 
 
 var nickname = "Anom";
-var ip = "192.168.0.25";
+var ip = "192.168.238.1";
 var port = "8989";
 
 $("#join").click(function(){
